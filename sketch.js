@@ -1,10 +1,18 @@
 var fixedRect,movingRect;
+
+var car, truck, bus, school;
+
 function setup() {
   createCanvas(800,400);
   fixedRect= createSprite(200, 200, 50, 80);
   movingRect= createSprite(400, 200, 80, 30);
+  car = createSprite(250,100,50,20);
+  truck = createSprite(300,300,40,60);
+  bus = createSprite(100,100,20,50);
+  school = createSprite(700,100,20,30);
 
-
+  bus.velocityX = 5;
+  school.velocityX = -2;
   // 65 -- 50,80----25 + 40 = 65
 }
 
@@ -13,19 +21,22 @@ function draw() {
   movingRect.x=World.mouseX;
   movingRect.y=World.mouseY;
 
+
+
   console.log(movingRect.x-fixedRect.x);
 
- if(movingRect.x-fixedRect.x<=fixedRect.width/2+movingRect.width/2 &&
-    fixedRect.x - movingRect.x <= fixedRect.width/2+movingRect.width/2 &&
-    movingRect.y - fixedRect.y <= fixedRect.height / 2 + movingRect.height / 2 &&
-    fixedRect.y-movingRect.y<=fixedRect.height / 2 + movingRect.height/ 2 )
-  {movingRect.shapeColor="red";
-  fixedRect.shapeColor="red";
-
-}
-else{movingRect.shapeColor="green";
-  fixedRect.shapeColor="green";
-
-} 
+  if(isTouching(movingRect,car)){
+    movingRect.shapeColor="red";
+  }
+    
+  else {
+    movingRect.shapeColor="green";
+    
+  }
+ 
+  bounceOff(bus,school);
   drawSprites();
 }
+
+// Function with arguments
+
